@@ -36,9 +36,18 @@ public class RockPaperScissorsServer {
         out= new DataOutputStream(socket.getOutputStream());
         while (true){
             if(newPlayer){
+
                 DataOutputStream outputStream =
                         new DataOutputStream(socket.getOutputStream());
-                String x= in.readUTF();
+                String x="";
+                try{
+                     x= in.readUTF();
+                }
+                catch (Exception e){
+                    //keeping the socket alive
+                    startGame();
+                }
+
                 System.out.println("New player has joined! Name:"+x);
                 outputStream.writeUTF("Welcome! "+ x);
                 newPlayer= false;
